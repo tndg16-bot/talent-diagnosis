@@ -33,16 +33,19 @@ export default function DiagnosisForm() {
         <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto space-y-6 animate-fade-in-up">
             <div className="space-y-2">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 tracking-wide">
-                    お名前 (任意)
+                    お名前 (任意・ローマ字推奨)
                 </label>
                 <input
                     type="text"
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="山田 太郎"
+                    placeholder="Taro Yamada"
                     className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-indigo-300 focus:ring focus:ring-indigo-100 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-sm"
                 />
+                <p className="text-xs text-gray-400">
+                    ※ ローマ字で入力すると「ソウルナンバー」と「パーソナリティナンバー」も診断できます
+                </p>
             </div>
 
             <div className="space-y-2">

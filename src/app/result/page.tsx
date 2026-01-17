@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { calcLifePathNumber } from '@/lib/numerology/calculator';
+import { calcLifePathNumber, calcSoulNumber, calcPersonalityNumber } from '@/lib/numerology/calculator';
 import { calcShichuSuimei } from '@/lib/shichusuimei/calculator';
 import { calcUnkiCycle } from '@/lib/unki/calculator';
 import { generateSpiritualAdvice } from '@/lib/ai/advisor';
@@ -19,6 +19,7 @@ import shichuData from '@/data/shichusuimei.json';
 interface SearchParams {
     birthDate?: string;
     birthTime?: string;
+    name?: string;
 }
 
 const HEAVENLY_STEMS = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
@@ -29,7 +30,7 @@ export default async function ResultPage({
 }: {
     searchParams: Promise<SearchParams>;
 }) {
-    const { birthDate, birthTime } = await searchParams;
+    const { birthDate, birthTime, name } = await searchParams;
 
     if (!birthDate) {
         return (
@@ -46,6 +47,8 @@ export default async function ResultPage({
 
     // 1. Numerology
     const lifePathNumber = calcLifePathNumber(birthDate);
+    const soulNumber = name ? calcSoulNumber(name) : null;
+    const personalityNumber = name ? calcPersonalityNumber(name) : null;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const lpData = (numerologyData.lifePathNumbers as any)[lifePathNumber.toString()];
 
@@ -101,7 +104,7 @@ export default async function ResultPage({
                             <span className="text-4xl text-gray-200 font-serif font-bold">01</span>
                             <h2 className="text-lg font-bold text-gray-900 mb-1">Soul Number</h2>
                         </div>
-                        <NumerologyResult lifePathNumber={lifePathNumber} />
+                        <NumerologyResult lifePathNumber={lifePathNumber} soulNumber={soulNumber} personalityNumber={personalityNumber} />
                     </section>
 
                     {/* Section 2: Shichu Suimei */}
