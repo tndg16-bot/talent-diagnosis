@@ -55,6 +55,7 @@ export function calcUnkiCycle(birthDate: string, dayMaster: string, dayStemIdx: 
     // 基準: 2024=甲辰, 2025=乙巳, 2026=丙午
     const BASE_YEAR = 2024;
     const STEMS = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+    const BRANCHES = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 
     for (let i = 0; i < 10; i++) {
         const year = startYear + i;
@@ -76,7 +77,8 @@ export function calcUnkiCycle(birthDate: string, dayMaster: string, dayStemIdx: 
         const yearBranchIdx = (4 + diff) % 12; // 2024 is 辰(4)
 
         const yearStem = STEMS[(yearStemIdx + 100) % 10]; // Handle negative
-        const yearBranch = BRANCHES[(yearBranchIdx + 100) % 12];
+        // yearBranchIdx is always positive in this context, so no need for +100 offset
+        const yearBranch = BRANCHES[yearBranchIdx % 12];
 
         const isTenchuu = tenchuuSatsuBranches.includes(yearBranch);
 

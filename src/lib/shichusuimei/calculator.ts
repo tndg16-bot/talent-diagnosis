@@ -1,12 +1,12 @@
-import { Solar } from 'lunar-javascript';
+﻿import { Solar } from 'lunar-javascript';
 import { getTenGen, getJunniUn, getZogan } from './mappings';
 
 export interface Pillar {
-    gan: string; // 天干 (例: 甲)
-    shi: string; // 地支 (例: 子)
-    tenGen: string; // 通変星 (天干と日干の関係)
-    junniUn: string; // 十二運
-    zogan: string[]; // 蔵干
+    gan: string; // 螟ｩ蟷ｲ (萓・ 逕ｲ)
+    shi: string; // 蝨ｰ謾ｯ (萓・ 蟄・
+    tenGen: string; // 騾壼､画弌 (螟ｩ蟷ｲ縺ｨ譌･蟷ｲ縺ｮ髢｢菫・
+    junniUn: string; // 蜊∽ｺ碁°
+    zogan: string[]; // 阡ｵ蟷ｲ
 }
 
 export interface ShichuResult {
@@ -14,12 +14,12 @@ export interface ShichuResult {
     month: Pillar;
     day: Pillar;
     hour: Pillar;
-    dayMaster: string; // 日干 (本質)
-    gogyoBalance: Record<string, number>; // 木火土金水のバランス
+    dayMaster: string; // 譌･蟷ｲ (譛ｬ雉ｪ)
+    gogyoBalance: Record<string, number>; // 譛ｨ轣ｫ蝨滄≡豌ｴ縺ｮ繝舌Λ繝ｳ繧ｹ
 }
 
-// 四柱推命計算のメイン関数
-// 時刻が不明の場合は hour=12 (正午) をデフォルトとする
+// 蝗帶浤謗ｨ蜻ｽ險育ｮ励・繝｡繧､繝ｳ髢｢謨ｰ
+// 譎ょ綾縺御ｸ肴・縺ｮ蝣ｴ蜷医・ hour=12 (豁｣蜊・ 繧偵ョ繝輔か繝ｫ繝医→縺吶ｋ
 export function calcShichuSuimei(birthDate: string, birthTime: string = '12:00'): ShichuResult {
     const [year, month, day] = birthDate.split('-').map(Number);
     const [hour, minute] = birthTime.split(':').map(Number);
@@ -48,7 +48,7 @@ export function calcShichuSuimei(birthDate: string, birthTime: string = '12:00')
         day: {
             gan: bazi.getDayGan(),
             shi: bazi.getDayZhi(),
-            tenGen: '比肩', // 自分自身は常に比肩（または空欄）
+            tenGen: '豈碑か', // 閾ｪ蛻・・霄ｫ縺ｯ蟶ｸ縺ｫ豈碑か・医∪縺溘・遨ｺ谺・ｼ・
             junniUn: getJunniUn(dayMaster, bazi.getDayZhi()),
             zogan: getZogan(bazi.getDayZhi()),
         },
@@ -69,10 +69,10 @@ export function calcShichuSuimei(birthDate: string, birthTime: string = '12:00')
     };
 }
 
-// 五行バランス計算
+// 五行のバランスを計算する（スタブ）
 function calcGogyoBalance(chars: string[]) {
-    // 簡易実装: 本来は五行の属性判定が必要だが、今回は0で埋める
-    // Phase 3で正式実装予定
-    const counts = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 };
+    // 本来は蔵干なども考慮して五行の数を集計する
+    // Phase 3では未実装のため、ダミーデータを返す
+    const counts = { '木': 0, '火': 0, '土': 0, '金': 0, '水': 0 };
     return counts;
 }
